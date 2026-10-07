@@ -1,0 +1,93 @@
+server:
+  port: ${SERVER_PORT:8080}
+  error:
+    include-message: always
+    include-binding-errors: always
+
+spring:
+  application:
+    name: os4all-backend
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:dev}
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:os4all}?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC}
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:password}
+    driver-class-name: ${DB_DRIVER:com.mysql.cj.jdbc.Driver}
+    hikari:
+      connection-timeout: 20000
+      maximum-pool-size: 10
+      minimum-idle: 2
+      idle-timeout: 300000
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: ${SPRING_JPA_HIBERNATE_DDL_AUTO:update}
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: false
+  flyway:
+    enabled: ${SPRING_FLYWAY_ENABLED:false}
+    baseline-on-migrate: true
+    locations: classpath:db/migration
+
+# Security & JWT Configuration
+app:
+  security:
+    jwt:
+      # Default 256-bit hex secret key for dev. Must be overridden via environment in production!
+      secret: ${JWT_SECRET:404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970}
+      expiration-ms: ${JWT_EXPIRATION_MS:900000} # 15 minutes
+      refresh-expiration-ms: ${JWT_REFRESH_EXPIRATION_MS:604800000} # 7 days
+  audit:
+    enabled: ${AUDIT_LOG_ENABLED:true}
+  storage:
+    upload-dir: ${REPORT_UPLOAD_DIR:${java.io.tmpdir}/os4all-uploads}
+    max-file-size-bytes: ${REPORT_MAX_FILE_SIZE:10485760} # 10 MB
+  synthea:
+    fhir-path: ${SYNTHEA_FHIR_PATH:D:/Projects/synthea-master/output/fhir}
+  ai:
+    provider: ${OS4ALL_AI_PROVIDER:${AI_PROVIDER:mock}} # mock, nebius
+    model: ${NEBIUS_MODEL:${AI_MODEL:nvidia/Llama-3_1-Nemotron-70B-Instruct}}
+    api-url: ${NEBIUS_BASE_URL:${AI_API_URL:https://api.studio.nebius.ai/v1}}
+    api-key: ${NEBIUS_API_KEY:${AI_API_KEY:}}
+    temperature: ${AI_TEMPERATURE:0.2}
+    max-tokens: ${AI_MAX_TOKENS:1500}
+    timeout-ms: ${AI_TIMEOUT_MS:30000}
+    gemini:
+      api-key: ${GEMINI_API_KEY:}
+      model: ${GEMINI_MODEL:gemini-3.8-flash}
+      api-url: ${GEMINI_API_URL:https://generativelanguage.googleapis.com/v1beta/models}
+  evidence:
+    enabled: ${EVIDENCE_ENABLED:true}
+    provider: ${OS4ALL_EVIDENCE_PROVIDER:${EVIDENCE_PROVIDER:mock}} # mock, tavily
+    api-url: ${TAVILY_API_URL:https://api.tavily.com/search}
+    api-key: ${TAVILY_API_KEY:}
+    max-results: ${EVIDENCE_MAX_RESULTS:3}
+    min-relevance-score: ${EVIDENCE_MIN_RELEVANCE:0.65}
+    timeout-ms: ${EVIDENCE_TIMEOUT_MS:10000}
+
+# Google Gemini Configuration (Official GenAI SDK)
+gemini:
+  api-key: ${GEMINI_API_KEY:}
+  model: ${GEMINI_MODEL:gemini-3.8-flash}
+
+# Spring Boot Actuator Telemetry
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always
+
+# OpenAPI / Swagger Documentation
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: method
+    tagsSorter: alpha

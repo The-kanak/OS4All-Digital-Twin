@@ -1,0 +1,46 @@
+server:
+  port: 0
+
+spring:
+  datasource:
+    url: jdbc:h2:mem:os4all_test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=MySQL
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        format_sql: false
+    show-sql: false
+  flyway:
+    enabled: false
+
+app:
+  security:
+    jwt:
+      secret: ${JWT_SECRET:404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970}
+      expiration-ms: 60000
+      refresh-expiration-ms: 120000
+  audit:
+    enabled: true
+  storage:
+    upload-dir: ${java.io.tmpdir}/os4all-test-uploads
+    max-file-size-bytes: 10485760
+  ai:
+    provider: mock
+    model: nvidia/Llama-3_1-Nemotron-70B-Instruct
+    api-url: https://api.studio.nebius.ai/v1
+    api-key: ${NEBIUS_API_KEY:}
+    temperature: 0.2
+    max-tokens: 1500
+    timeout-ms: 5000
+  evidence:
+    enabled: true
+    provider: mock
+    api-url: https://api.tavily.com/search
+    api-key: ${TAVILY_API_KEY:}
+    max-results: 3
+    min-relevance-score: 0.65
+    timeout-ms: 3000
