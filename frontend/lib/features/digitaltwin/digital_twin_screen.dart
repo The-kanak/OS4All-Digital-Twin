@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../core/theme/mobile_design_system.dart';
 import '../../shared/widgets/os4_components.dart';
 import 'digital_twin_controller.dart';
+import 'doctor_dashboard_screen.dart';
 
 /// SCREEN 2 — TWIN (HERO SCREEN)
 /// "Your Digital Twin"
@@ -61,7 +62,7 @@ class _DigitalTwinScreenState extends State<DigitalTwinScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // 1. Header
-                  _buildHeader(),
+                  _buildHeader(controller),
                   const SizedBox(height: 12),
 
                   // 2. Virtual Patient Identity Header
@@ -118,7 +119,7 @@ class _DigitalTwinScreenState extends State<DigitalTwinScreen> {
     );
   }
 
-  Widget _buildHeader() {
+  Widget _buildHeader(DigitalTwinController controller) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -126,7 +127,7 @@ class _DigitalTwinScreenState extends State<DigitalTwinScreen> {
           alignment: WrapAlignment.spaceBetween,
           crossAxisAlignment: WrapCrossAlignment.center,
           spacing: 8,
-          runSpacing: 4,
+          runSpacing: 6,
           children: [
             Text(
               'Your Digital Twin',
@@ -137,28 +138,83 @@ class _DigitalTwinScreenState extends State<DigitalTwinScreen> {
                 letterSpacing: -0.4,
               ),
             ),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-              decoration: BoxDecoration(
-                color: MobileTheme.primary.withOpacity(0.15),
-                borderRadius: BorderRadius.circular(20),
-                border: Border.all(color: MobileTheme.primary.withOpacity(0.4)),
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Icon(Icons.bolt_rounded, size: 13, color: MobileTheme.primary),
-                  const SizedBox(width: 4),
-                  Text(
-                    'Active Model',
-                    style: GoogleFonts.inter(
-                      fontSize: 10.5,
-                      fontWeight: FontWeight.w700,
-                      color: MobileTheme.primary,
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: MobileTheme.primary.withValues(alpha: 0.15),
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(color: MobileTheme.primary.withValues(alpha: 0.4)),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(Icons.bolt_rounded, size: 13, color: MobileTheme.primary),
+                      const SizedBox(width: 4),
+                      Text(
+                        'Active Model',
+                        style: GoogleFonts.inter(
+                          fontSize: 10.5,
+                          fontWeight: FontWeight.w700,
+                          color: MobileTheme.primary,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Tooltip(
+                  message: 'Clinical workstation',
+                  child: Material(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20),
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(20),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (_) => DoctorDashboardScreen(
+                              controller: controller,
+                              initialPatient: controller.selectedPatient,
+                            ),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          border: Border.all(color: MobileTheme.primary.withValues(alpha: 0.35), width: 1),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withValues(alpha: 0.04),
+                              blurRadius: 4,
+                              offset: const Offset(0, 1),
+                            ),
+                          ],
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Icon(Icons.medical_services_outlined, size: 13, color: MobileTheme.primary),
+                            const SizedBox(width: 5),
+                            Text(
+                              'Doctor View',
+                              style: GoogleFonts.inter(
+                                fontSize: 11,
+                                fontWeight: FontWeight.w700,
+                                color: MobileTheme.primary,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ],
         ),

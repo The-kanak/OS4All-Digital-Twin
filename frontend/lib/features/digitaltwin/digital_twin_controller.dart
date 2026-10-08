@@ -21,7 +21,23 @@ class DigitalTwinController extends ChangeNotifier {
   List<dynamic> _patients = [];
   List<dynamic> get patients => _patients;
 
-  Map<String, dynamic>? _selectedPatient;
+  Map<String, dynamic>? _selectedPatient = {
+    'id': 'bab72fc3-4f22-37b1-89bc-3c968998c695',
+    'name': 'Shara Senger',
+    'fullName': 'Shara Senger',
+    'age': 54,
+    'gender': 'Female',
+    'biologicalSex': 'FEMALE',
+    'condition': 'Type 2 Diabetes',
+    'primaryCondition': 'Type 2 Diabetes',
+    'heightCm': 168.0,
+    'weightKg': 78.0,
+    'bmi': 27.6,
+    'bloodType': 'A+',
+    'currentTwinState': 'ELEVATED_RISK',
+    'overallRiskScore': 76.4,
+    'glucoseSpikeProbability': 94.0,
+  };
   Map<String, dynamic>? get selectedPatient => _selectedPatient;
 
   // Digital Twin Core State
@@ -202,17 +218,37 @@ class DigitalTwinController extends ChangeNotifier {
       // 1. Fetch available cohort patients
       _patients = await _api.getPatients();
       if (_patients.isNotEmpty) {
-        _selectedPatient = _patients.firstWhere(
-          (p) => p['name']?.toString().contains('Shara') == true || p['name']?.toString().contains('Senger') == true,
+        final match = _patients.firstWhere(
+          (p) => (p['name']?.toString().contains('Shara') == true ||
+                  p['fullName']?.toString().contains('Shara') == true ||
+                  p['name']?.toString().contains('Senger') == true ||
+                  p['fullName']?.toString().contains('Senger') == true),
           orElse: () => _patients.first,
-        ) as Map<String, dynamic>?;
+        );
+        _selectedPatient = Map<String, dynamic>.from(match as Map);
+        _selectedPatient!['name'] = _selectedPatient!['fullName'] ?? _selectedPatient!['name'] ?? 'Shara Senger';
+        _selectedPatient!['fullName'] = _selectedPatient!['fullName'] ?? _selectedPatient!['name'] ?? 'Shara Senger';
+        _selectedPatient!['gender'] = _selectedPatient!['biologicalSex'] ?? _selectedPatient!['gender'] ?? 'Female';
+        _selectedPatient!['biologicalSex'] = _selectedPatient!['biologicalSex'] ?? _selectedPatient!['gender'] ?? 'FEMALE';
+        _selectedPatient!['condition'] = _selectedPatient!['primaryCondition'] ?? _selectedPatient!['condition'] ?? 'Type 2 Diabetes';
+        _selectedPatient!['primaryCondition'] = _selectedPatient!['primaryCondition'] ?? _selectedPatient!['condition'] ?? 'Type 2 Diabetes';
       } else {
         _selectedPatient = {
-          'id': 'shara-senger-uuid',
+          'id': 'bab72fc3-4f22-37b1-89bc-3c968998c695',
           'name': 'Shara Senger',
+          'fullName': 'Shara Senger',
           'age': 54,
           'gender': 'Female',
+          'biologicalSex': 'FEMALE',
           'condition': 'Type 2 Diabetes',
+          'primaryCondition': 'Type 2 Diabetes',
+          'heightCm': 168.0,
+          'weightKg': 78.0,
+          'bmi': 27.6,
+          'bloodType': 'A+',
+          'currentTwinState': 'ELEVATED_RISK',
+          'overallRiskScore': 76.4,
+          'glucoseSpikeProbability': 94.0,
         };
       }
 

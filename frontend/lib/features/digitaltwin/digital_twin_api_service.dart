@@ -11,7 +11,7 @@ class DigitalTwinApiService {
 
   Future<List<dynamic>> getPatients() async {
     try {
-      final res = await http.get(Uri.parse('$baseUrl/patients'));
+      final res = await http.get(Uri.parse('$baseUrl/patients')).timeout(const Duration(seconds: 4));
       if (res.statusCode == 200) {
         final data = jsonDecode(res.body);
         return data['data'] as List<dynamic>? ?? [];
@@ -22,7 +22,7 @@ class DigitalTwinApiService {
 
   Future<Map<String, dynamic>?> getPatientDetail(String patientId) async {
     try {
-      final res = await http.get(Uri.parse('$baseUrl/patients/$patientId'));
+      final res = await http.get(Uri.parse('$baseUrl/patients/$patientId')).timeout(const Duration(seconds: 4));
       if (res.statusCode == 200) {
         final data = jsonDecode(res.body);
         return data['data'] as Map<String, dynamic>?;
@@ -33,7 +33,7 @@ class DigitalTwinApiService {
 
   Future<Map<String, dynamic>?> getDigitalTwinState(String patientId) async {
     try {
-      final res = await http.get(Uri.parse('$baseUrl/patients/$patientId/digital-twin'));
+      final res = await http.get(Uri.parse('$baseUrl/patients/$patientId/digital-twin')).timeout(const Duration(seconds: 4));
       if (res.statusCode == 200) {
         final data = jsonDecode(res.body);
         return data['data'] as Map<String, dynamic>?;
@@ -44,7 +44,7 @@ class DigitalTwinApiService {
 
   Future<Map<String, dynamic>?> getPrediction(String patientId) async {
     try {
-      final res = await http.get(Uri.parse('$baseUrl/patients/$patientId/prediction'));
+      final res = await http.get(Uri.parse('$baseUrl/patients/$patientId/prediction')).timeout(const Duration(seconds: 4));
       if (res.statusCode == 200) {
         final data = jsonDecode(res.body);
         return data['data'] as Map<String, dynamic>?;
@@ -55,7 +55,7 @@ class DigitalTwinApiService {
 
   Future<Map<String, dynamic>?> getWearableStream(String patientId, String metric, {int days = 7}) async {
     try {
-      final res = await http.get(Uri.parse('$baseUrl/patients/$patientId/wearables?metric=$metric&days=$days'));
+      final res = await http.get(Uri.parse('$baseUrl/patients/$patientId/wearables?metric=$metric&days=$days')).timeout(const Duration(seconds: 4));
       if (res.statusCode == 200) {
         final data = jsonDecode(res.body);
         return data['data'] as Map<String, dynamic>?;
@@ -66,7 +66,7 @@ class DigitalTwinApiService {
 
   Future<Map<String, dynamic>?> getBaseline(String patientId) async {
     try {
-      final res = await http.get(Uri.parse('$baseUrl/patients/$patientId/baseline'));
+      final res = await http.get(Uri.parse('$baseUrl/patients/$patientId/baseline')).timeout(const Duration(seconds: 4));
       if (res.statusCode == 200) {
         final data = jsonDecode(res.body);
         return data['data'] as Map<String, dynamic>?;
@@ -77,7 +77,7 @@ class DigitalTwinApiService {
 
   Future<List<dynamic>> getTimeline(String patientId, {int days = 30}) async {
     try {
-      final res = await http.get(Uri.parse('$baseUrl/patients/$patientId/timeline?days=$days'));
+      final res = await http.get(Uri.parse('$baseUrl/patients/$patientId/timeline?days=$days')).timeout(const Duration(seconds: 4));
       if (res.statusCode == 200) {
         final data = jsonDecode(res.body);
         return data['data'] as List<dynamic>? ?? [];
@@ -88,7 +88,7 @@ class DigitalTwinApiService {
 
   Future<Map<String, dynamic>?> injectScenario(String patientId, String scenario) async {
     try {
-      final res = await http.post(Uri.parse('$baseUrl/simulation/scenario/$scenario?patientId=$patientId'));
+      final res = await http.post(Uri.parse('$baseUrl/simulation/scenario/$scenario?patientId=$patientId')).timeout(const Duration(seconds: 4));
       if (res.statusCode == 200) {
         final data = jsonDecode(res.body);
         return data['data'] as Map<String, dynamic>?;
@@ -99,7 +99,7 @@ class DigitalTwinApiService {
 
   Future<Map<String, dynamic>?> nextSimulationReading(String patientId) async {
     try {
-      final res = await http.post(Uri.parse('$baseUrl/simulation/next-reading?patientId=$patientId'));
+      final res = await http.post(Uri.parse('$baseUrl/simulation/next-reading?patientId=$patientId')).timeout(const Duration(seconds: 4));
       if (res.statusCode == 200) {
         final data = jsonDecode(res.body);
         return data['data'] as Map<String, dynamic>?;
@@ -110,7 +110,7 @@ class DigitalTwinApiService {
 
   Future<Map<String, dynamic>?> resetSimulation(String patientId) async {
     try {
-      final res = await http.post(Uri.parse('$baseUrl/simulation/reset?patientId=$patientId'));
+      final res = await http.post(Uri.parse('$baseUrl/simulation/reset?patientId=$patientId')).timeout(const Duration(seconds: 4));
       if (res.statusCode == 200) {
         final data = jsonDecode(res.body);
         return data['data'] as Map<String, dynamic>?;
@@ -125,7 +125,7 @@ class DigitalTwinApiService {
         Uri.parse('$baseUrl/patients/$patientId/interact'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({'question': question}),
-      );
+      ).timeout(const Duration(seconds: 8));
       if (res.statusCode == 200) {
         final data = jsonDecode(res.body);
         return data['data'] as Map<String, dynamic>?;
@@ -138,7 +138,7 @@ class DigitalTwinApiService {
 
   Future<Map<String, dynamic>?> getLatestTelemetry(String patientId) async {
     try {
-      final res = await http.get(Uri.parse('$telemetryUrl/$patientId/latest'));
+      final res = await http.get(Uri.parse('$telemetryUrl/$patientId/latest')).timeout(const Duration(seconds: 4));
       if (res.statusCode == 200) {
         final data = jsonDecode(res.body);
         return data['data'] as Map<String, dynamic>?;
@@ -149,7 +149,7 @@ class DigitalTwinApiService {
 
   Future<List<dynamic>> getTelemetryHistory(String patientId, {int limit = 50}) async {
     try {
-      final res = await http.get(Uri.parse('$telemetryUrl/$patientId/history?limit=$limit'));
+      final res = await http.get(Uri.parse('$telemetryUrl/$patientId/history?limit=$limit')).timeout(const Duration(seconds: 4));
       if (res.statusCode == 200) {
         final data = jsonDecode(res.body);
         return data['data'] as List<dynamic>? ?? [];
@@ -160,7 +160,7 @@ class DigitalTwinApiService {
 
   Future<Map<String, dynamic>?> getTelemetryStream(String patientId, {String metric = 'glucose', int days = 7}) async {
     try {
-      final res = await http.get(Uri.parse('$telemetryUrl/$patientId/stream?metric=$metric&days=$days'));
+      final res = await http.get(Uri.parse('$telemetryUrl/$patientId/stream?metric=$metric&days=$days')).timeout(const Duration(seconds: 4));
       if (res.statusCode == 200) {
         final data = jsonDecode(res.body);
         return data['data'] as Map<String, dynamic>?;
@@ -172,7 +172,7 @@ class DigitalTwinApiService {
   Future<Map<String, dynamic>?> startTelemetrySimulation(String patientId, {String? scenario, int intervalSeconds = 5}) async {
     try {
       final uri = Uri.parse('$telemetryUrl/simulation/start?patientId=$patientId&intervalSeconds=$intervalSeconds${scenario != null ? '&scenario=$scenario' : ''}');
-      final res = await http.post(uri);
+      final res = await http.post(uri).timeout(const Duration(seconds: 4));
       if (res.statusCode == 200) {
         final data = jsonDecode(res.body);
         return data['data'] as Map<String, dynamic>?;
@@ -183,7 +183,7 @@ class DigitalTwinApiService {
 
   Future<Map<String, dynamic>?> stopTelemetrySimulation(String patientId) async {
     try {
-      final res = await http.post(Uri.parse('$telemetryUrl/simulation/stop?patientId=$patientId'));
+      final res = await http.post(Uri.parse('$telemetryUrl/simulation/stop?patientId=$patientId')).timeout(const Duration(seconds: 4));
       if (res.statusCode == 200) {
         final data = jsonDecode(res.body);
         return data['data'] as Map<String, dynamic>?;
@@ -194,7 +194,7 @@ class DigitalTwinApiService {
 
   Future<Map<String, dynamic>?> setTelemetryScenario(String patientId, String scenario) async {
     try {
-      final res = await http.post(Uri.parse('$telemetryUrl/simulation/scenario?patientId=$patientId&scenario=$scenario'));
+      final res = await http.post(Uri.parse('$telemetryUrl/simulation/scenario?patientId=$patientId&scenario=$scenario')).timeout(const Duration(seconds: 4));
       if (res.statusCode == 200) {
         final data = jsonDecode(res.body);
         return data['data'] as Map<String, dynamic>?;
@@ -205,7 +205,7 @@ class DigitalTwinApiService {
 
   Future<Map<String, dynamic>?> getTelemetrySimulationStatus(String patientId) async {
     try {
-      final res = await http.get(Uri.parse('$telemetryUrl/simulation/status?patientId=$patientId'));
+      final res = await http.get(Uri.parse('$telemetryUrl/simulation/status?patientId=$patientId')).timeout(const Duration(seconds: 4));
       if (res.statusCode == 200) {
         final data = jsonDecode(res.body);
         return data['data'] as Map<String, dynamic>?;
@@ -223,7 +223,7 @@ class DigitalTwinApiService {
           if (path != null) 'path': path,
           'metabolicOnly': metabolicOnly.toString(),
         }),
-      );
+      ).timeout(const Duration(seconds: 6));
       if (res.statusCode == 200) {
         final data = jsonDecode(res.body);
         return data['data'] as Map<String, dynamic>?;
@@ -241,7 +241,7 @@ class DigitalTwinApiService {
           'context': 'digital-twin',
           if (focus != null) 'focus': focus,
         }),
-      );
+      ).timeout(const Duration(seconds: 8));
       if (res.statusCode == 200) {
         final data = jsonDecode(res.body);
         return data['data'] as Map<String, dynamic>?;
@@ -256,7 +256,7 @@ class DigitalTwinApiService {
         Uri.parse('$baseUrl/patients/$patientId/gemini/chat'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({'question': question}),
-      );
+      ).timeout(const Duration(seconds: 8));
       if (res.statusCode == 200) {
         final data = jsonDecode(res.body);
         return data['data'] as Map<String, dynamic>?;
@@ -267,7 +267,7 @@ class DigitalTwinApiService {
 
   Future<Map<String, dynamic>?> getGeminiStatus(String patientId) async {
     try {
-      final res = await http.get(Uri.parse('$baseUrl/patients/$patientId/gemini/status'));
+      final res = await http.get(Uri.parse('$baseUrl/patients/$patientId/gemini/status')).timeout(const Duration(seconds: 4));
       if (res.statusCode == 200) {
         final data = jsonDecode(res.body);
         return data['data'] as Map<String, dynamic>?;
