@@ -12,7 +12,7 @@
 * **Participation:** Solo Participant
 * **Team Size:** 1
 * **Participant Name:** Kanak Ghawade
-* **Contact:** ghawadekanak@gmail.com
+* **Contact:** kanakghawade@gmail.com
 
 ---
 
