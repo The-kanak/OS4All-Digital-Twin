@@ -299,10 +299,21 @@ All product screenshots are captured directly from the running OS4All Digital Tw
 
 ---
 
-## 🎥 Prototype Demo Video
+## 🎥 Demo Video
 
-> 🔴 **TODO — REQUIRED BEFORE SUBMISSION: Upload the prototype demo as an Unlisted YouTube video and add the link here.**  
-> `https://www.youtube.com/watch?v=YOUR_VIDEO_ID`
+### OS4All Digital Twin — Hackathon Demonstration
+
+Watch the project demonstration on YouTube:  
+[Watch the OS4All Digital Twin Demo](https://youtu.be/x_Sg_Tk25no)
+
+The demonstration covers:
+* Virtual patient dashboard and health risk overview
+* Digital Twin physiological state
+* Simulated real-time health telemetry
+* AI-generated health insights and explanations
+* Patient profile and configurable physiological baselines
+
+> **Important disclosure:** The demonstration uses a synthetic virtual patient and simulated telemetry. The displayed health risk scores and glucose projections are experimental and are not validated for clinical decision-making or intended to provide a medical diagnosis.
 
 ### Demo Walkthrough Coverage
 The demonstration video covers the full functional prototype:
@@ -473,7 +484,7 @@ copies or substantial portions of the Software.
 | **Public GitHub Access** | Clean open repository | ✅ Completed | Zero exposed secrets, clean directory hierarchy |
 | **Open-Source License** | Physical `LICENSE` file in root | ✅ Completed | [LICENSE](LICENSE) (MIT License) |
 | **Architecture Diagram** | PDF/PPT format in root | ✅ Completed | [ARCHITECTURE_DIAGRAM.pdf](ARCHITECTURE_DIAGRAM.pdf) (16:9 Landscape) |
-| **Prototype Demo Video** | Unlisted YouTube video link | ⏳ Action Required | 🔴 `TODO: Upload YouTube video and update Section 13` |
+| **Prototype Demo Video** | Unlisted YouTube video link | ✅ Completed | [Watch Demo](https://youtu.be/x_Sg_Tk25no) |
 | **Project Presentation** | PDF/PPT format in root | ✅ Completed | [PROJECT_PRESENTATION.pdf](PROJECT_PRESENTATION.pdf) (10-Slide Landscape) |
 
 ---
