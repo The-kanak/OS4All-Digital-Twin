@@ -304,16 +304,16 @@ All product screenshots are captured directly from the running OS4All Digital Tw
 ### OS4All Digital Twin — Hackathon Demonstration
 
 Watch the project demonstration on YouTube:  
-[Watch the OS4All Digital Twin Demo](https://youtu.be/x_Sg_Tk25no)
+[Watch the 15–20 Minute OS4All Digital Twin Demo](https://youtu.be/x_Sg_Tk25no)
 
-The demonstration covers:
+The demonstration covers the virtual patient dashboard, digital twin state, simulated physiological telemetry, AI-generated health insights, and patient profile:
 * Virtual patient dashboard and health risk overview
 * Digital Twin physiological state
 * Simulated real-time health telemetry
 * AI-generated health insights and explanations
 * Patient profile and configurable physiological baselines
 
-> **Important disclosure:** The demonstration uses a synthetic virtual patient and simulated telemetry. The displayed health risk scores and glucose projections are experimental and are not validated for clinical decision-making or intended to provide a medical diagnosis.
+> **Important disclosure:** This demonstration uses a synthetic virtual patient and simulated telemetry. Risk scores and glucose projections are experimental prototype outputs and are not validated for clinical decision-making or intended to provide a medical diagnosis.
 
 ### Demo Walkthrough Coverage
 The demonstration video covers the full functional prototype:
@@ -448,7 +448,7 @@ flutter run -d windows
 
 This project is licensed under the **MIT License**.
 
-[View Full License File](LICENSE)
+[View the MIT License](LICENSE)
 
 ```
 MIT License
@@ -489,8 +489,13 @@ copies or substantial portions of the Software.
 
 ---
 
-## 🌐 Public Access
+## 🌐 Public Access & Verification
 
-The **OS4All Digital Twin** GitHub repository, codebase, technical documentation, architectural specifications, and visual assets are structured for complete, unrestricted public accessibility for the evaluation panel of the **Happiest Health Digital Twin Challenge 2026**.
+The **OS4All Digital Twin** GitHub repository, codebase, technical documentation, architectural specifications, project presentation, architecture diagram PDF, and demo video are structured for complete, unrestricted public accessibility without requiring additional permissions, access requests, or private credentials for the evaluation panel of the **Happiest Health Digital Twin Challenge 2026**.
 
-All core features execute locally with zero external hard dependencies (using deterministic offline fallbacks when cloud AI keys are omitted), ensuring frictionless, reproducible evaluation.
+* **Repository & Codebase:** Publicly hosted and browsable on GitHub.
+* **Architecture Diagram:** [ARCHITECTURE_DIAGRAM.pdf](ARCHITECTURE_DIAGRAM.pdf) directly viewable in repository root.
+* **Project Presentation:** [PROJECT_PRESENTATION.pdf](PROJECT_PRESENTATION.pdf) directly viewable in repository root.
+* **Demo Video:** [YouTube Demonstration](https://youtu.be/x_Sg_Tk25no) accessible without login or permission hurdles.
+* **Open-Source License:** [LICENSE](LICENSE) (MIT License) included in repository root.
+* **Zero External Barriers:** All core features execute locally with zero external hard dependencies (using deterministic offline fallbacks when cloud AI keys are omitted), ensuring frictionless, reproducible evaluation.
